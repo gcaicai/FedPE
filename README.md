@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# FedPC
+# FedPE
 
 This work is about a federated KG embedding method that ensures privacy preservation and the dynamic participation of
 clients.
@@ -35,6 +34,3 @@ We give the example script `.\exp.sh` for reproducing our experimental results.
 * [pypbc](https://github.com/debatem1/pypbc)
 * [WLGK](https://github.com/adriancaruana/py_wlgk)
 * [OpenKE](https://github.com/thunlp/OpenKE)
-=======
-# FedPE
->>>>>>> c54a6f5d495e44b56ee73da59112180b87a88969
