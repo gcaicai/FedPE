@@ -1,31 +1,24 @@
 # FedPE
 
-This work is about a federated KG embedding method that ensures privacy preservation and the dynamic participation of
-clients.
-It introduces an encryption protocol based on bilinear maps to process client data, achieving ciphertext alignment to
-enhance the quality of global embeddings while
-preserving data privacy.
+This work is about a federated KG embedding method that supports privacy preservation and secure participants extension.
+
+It utilizes bilinear map-based cryptographic techniques to enable encrypted representation and embedding training of entities and relations, and further introduces a ciphertext-level consistency mechanism to support secure collaborative embedding training between existing and newly joined participants without revealing any original data.
 
 ## Data
 
-We put our experimential datasets in `.\fed_data`, and more datasets can be found
-at [OpenKE](https://github.com/thunlp/OpenKE).
+We put our experimential datasets in `.\fed_data`, and detailed information can be found at [OpenKE](https://github.com/thunlp/OpenKE).
 
-Static and dynamic splitting of federated datasets can be found in `.\process_datasets.py`
-and `.\process_dynamic_datasets.py`, separately.
+The process of federated data can be found in `.\process_datasets.py`.
 
 ## Privacy
 
-We provide codes about the quantitative analyses of reconstruction attacks, member inference attacks and property
-inference attacks.
+We provide codes about the quantitative analyses of privacy attacks, which can be found in `.\recon_member_attacks.py` and `.\proper_infer_attacks.py`.
 
-The codes of three types of attacks are in `.\recon_member_attacks.py` and `.\proper_infer_attacks.py`.
-
-Encryption codes are in `.\data_encryption.py`.
+Data encryption codes are in `.\data_encryption.py`.
 
 ## Run
 
-We give the example script `.\exp.sh` for reproducing our experimental results.
+We give the example script `.\exp.sh` for reproducing the experimental results.
 
 ## Acknowledgement
 
