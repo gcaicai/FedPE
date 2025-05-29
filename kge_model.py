@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class KGEModel(nn.Module):
     def __init__(self, args, model_name):
         super(KGEModel, self).__init__()
@@ -74,7 +75,7 @@ class KGEModel(nn.Module):
 
     def DistMult(self, head, relation, tail):
         score = (head * relation) * tail
-        score = score.sum(dim = 2)
+        score = score.sum(dim=2)
         return score
 
     def ComplEx(self, head, relation, tail):
@@ -86,7 +87,7 @@ class KGEModel(nn.Module):
         im_score = re_head * im_relation + im_head * re_relation
         score = re_score * re_tail + im_score * im_tail
 
-        score = score.sum(dim = 2)
+        score = score.sum(dim=2)
         return score
 
     def RotatE(self, head, relation, tail):
@@ -107,8 +108,8 @@ class KGEModel(nn.Module):
         re_score = re_score - re_tail
         im_score = im_score - im_tail
 
-        score = torch.stack([re_score, im_score], dim = 0)
-        score = score.norm(dim = 0)
+        score = torch.stack([re_score, im_score], dim=0)
+        score = score.norm(dim=0)
 
-        score = self.gamma.item() - score.sum(dim = 2)
+        score = self.gamma.item() - score.sum(dim=2)
         return score

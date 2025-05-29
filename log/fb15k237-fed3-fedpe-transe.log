@@ -1,0 +1,20 @@
+2025-05-28 11:17:03 | {"data_path": "fed_data/FB15K237/FB15K237-Fed3.pkl", "name": "fb15k237-fed3-fedpe-transe", "state_dir": "./state", "log_dir": "./log", "tb_log_dir": "./tb_log", "run_mode": "FedPE", "model": "TransE", "one_client_idx": 0, "max_epoch": 10000, "log_per_epoch": 1, "check_per_epoch": 10, "batch_size": 512, "test_batch_size": 16, "num_neg": 256, "lr": 0.001, "max_round": 10000, "local_epoch": 3, "fraction": 1, "log_per_round": 1, "check_per_round": 5, "early_stop_patience": 5, "gamma": 10.0, "epsilon": 2.0, "hidden_dim": 128, "gpu": "0", "adversarial_temperature": 1.0, "seed": 12345}
+2025-05-28 11:21:07 | {"data_path": "fed_data/FB15K237/FB15K237-Fed3.pkl", "name": "fb15k237-fed3-fedpe-transe", "state_dir": "./state", "log_dir": "./log", "tb_log_dir": "./tb_log", "run_mode": "FedPE", "model": "TransE", "one_client_idx": 0, "max_epoch": 10000, "log_per_epoch": 1, "check_per_epoch": 10, "batch_size": 512, "test_batch_size": 16, "num_neg": 256, "lr": 0.001, "max_round": 10000, "local_epoch": 3, "fraction": 1, "log_per_round": 1, "check_per_round": 5, "early_stop_patience": 5, "gamma": 10.0, "epsilon": 2.0, "hidden_dim": 128, "gpu": "0", "adversarial_temperature": 1.0, "seed": 12345}
+2025-05-28 11:21:23 | epoch: 0 | loss: 0.5635
+2025-05-28 11:21:29 | mrr: 0.2509, hits@1: 0.1760, hits@3: 0.2800, hits@10: 0.3972
+2025-05-28 11:21:29 | best model | mrr 0.2509
+2025-05-28 11:21:45 | epoch: 1 | loss: 0.3555
+2025-05-28 11:22:01 | epoch: 2 | loss: 0.3032
+2025-05-28 11:22:18 | epoch: 3 | loss: 0.2771
+2025-05-28 11:22:34 | epoch: 4 | loss: 0.2612
+2025-05-28 11:22:51 | epoch: 5 | loss: 0.2497
+2025-05-28 11:23:08 | epoch: 6 | loss: 0.2422
+2025-05-28 11:23:25 | epoch: 7 | loss: 0.2361
+2025-05-28 11:23:41 | epoch: 8 | loss: 0.2326
+2025-05-28 11:23:58 | epoch: 9 | loss: 0.2294
+2025-05-28 11:24:15 | epoch: 10 | loss: 0.2274
+2025-05-28 11:24:20 | mrr: 0.4097, hits@1: 0.2851, hits@3: 0.4770, hits@10: 0.6494
+2025-05-28 11:24:20 | best model | mrr 0.4097
+2025-05-28 11:24:36 | epoch: 11 | loss: 0.2246
+2025-05-28 11:24:47 | {"data_path": "fed_data/FB15K237/FB15K237-Fed3.pkl", "name": "fb15k237-fed3-fedpe-transe", "state_dir": "./state", "log_dir": "./log", "tb_log_dir": "./tb_log", "run_mode": "FedPE", "model": "TransE", "one_client_idx": 0, "max_epoch": 10000, "log_per_epoch": 1, "check_per_epoch": 10, "batch_size": 512, "test_batch_size": 16, "num_neg": 256, "lr": 0.001, "max_round": 10000, "local_epoch": 3, "fraction": 1, "log_per_round": 1, "check_per_round": 5, "early_stop_patience": 5, "gamma": 10.0, "epsilon": 2.0, "hidden_dim": 128, "gpu": "0", "adversarial_temperature": 1.0, "seed": 12345}
+2025-05-28 11:25:03 | epoch: 0 | loss: 0.5635

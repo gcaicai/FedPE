@@ -63,13 +63,13 @@ class PKG(object):
         ski = Element.random(pairing, Zr)  # random select a prime number
         pki = Element(pairing, G1, value=g ** ski)  # pk = g^sk
         rdi = Element.random(pairing, Zr)
-        gammai = Element(pairing, G1, value=ski * rdi) # gamma = sk * rd
+        gammai = Element(pairing, G1, value=ski * rdi)  # gamma = sk * rd
 
         self.__sk.append(ski)
         self.__pk.append(pki)
 
         # calculate aggregated keys
-        aggPKi = Element(pairing, G1, value=self.__aggPK_all * rd) # g^((sk1*sk2*sk3)*rd4)
+        aggPKi = Element(pairing, G1, value=self.__aggPK_all * rd)  # g^((sk1*sk2*sk3)*rd4)
         self.__aggPK.append(aggPKi)
 
         self.__aggPK_all = Element(pairing, G1, value=self.__aggPK_all * gammai)
@@ -84,17 +84,16 @@ class Server(object):
     def process_data(self, client, gammai):
         ent_enc_data, rel_enc_data = client.get_enc_data()
         # recalculate e(x,y)^gammi
-        ent_enc_data_new = [data ** gammai for idx,data in enumerate(ent_enc_data)]
-        rel_enc_data_new = [data ** gammai for idx,data in enumerate(rel_enc_data)]
+        ent_enc_data_new = [data ** gammai for idx, data in enumerate(ent_enc_data)]
+        rel_enc_data_new = [data ** gammai for idx, data in enumerate(rel_enc_data)]
 
-        client.update_enc_data(ent_enc_data,rel_enc_data,ent_enc_data_new,rel_enc_data_new)
-
+        client.update_enc_data(ent_enc_data, rel_enc_data, ent_enc_data_new, rel_enc_data_new)
 
 
 class Client(object):
     def __init__(self):
-        self.ent2id_enc_all=[]
-        self.rel2id_enc_all=[]
+        self.ent2id_enc_all = []
+        self.rel2id_enc_all = []
 
     def get_enc_data(self):
         ent_enc_data = copy.deepcopy(self.ent2id_enc_all)
@@ -104,9 +103,9 @@ class Client(object):
         ent_enc_data = list(np.unique(ent_enc_data))
         rel_enc_data = list(np.unique(rel_enc_data))
 
-        return ent_enc_data,rel_enc_data
+        return ent_enc_data, rel_enc_data
 
-    def update_enc_data(self,ent_enc_data,rel_enc_data,ent_enc_data_new,rel_enc_data_new):
+    def update_enc_data(self, ent_enc_data, rel_enc_data, ent_enc_data_new, rel_enc_data_new):
         for i in range(len(self.ent2id_enc_all)-1):
             for j in range(len(ent_enc_data)):
                 if ent_enc_data[j] in self.ent2id_enc_all[i]:
@@ -122,7 +121,7 @@ class Client(object):
     # both suitable for static client and dynamic client
     def process_data(self, client_id, pki, aggPKi):
 
-        data_path = 'fed_data/FB15K237/FB15K237-Fed10.pkl' # need to modify the file path
+        data_path = 'fed_data/FB15K237/FB15K237-Fed10.pkl'  # need to modify the file path
         all_data = pickle.load(open(data_path, 'rb'))
 
         ent_unique = np.unique(np.concatenate((
@@ -140,8 +139,8 @@ class Client(object):
         ent2id_lst = []
         rel2id_lst = []
 
-        ent_file_path = 'fed_data/FB15K237/entity2id.txt' # need to modify the file path
-        rel_file_path = 'fed_data/FB15K237/relation2id.txt' # need to modify the file path
+        ent_file_path = 'fed_data/FB15K237/entity2id.txt'  # need to modify the file path
+        rel_file_path = 'fed_data/FB15K237/relation2id.txt'  # need to modify the file path
         with open(ent_file_path) as f:
             for line in f:
                 ent, idx = line.strip().split('\t')
@@ -152,8 +151,8 @@ class Client(object):
                 rel, idx = line.strip().split('\t')
                 rel2id_lst.append(rel)
 
-        ent2id_enc_lst=[]
-        rel2id_enc_lst=[]
+        ent2id_enc_lst = []
+        rel2id_enc_lst = []
 
         for i in range(len(ent2id_lst)):
             if ent2id_lst[i] in ent_unique:
@@ -178,42 +177,42 @@ class Client(object):
 
     # after all client's encryption
     def merge_data(self):
-        ent2id_enc_lst=self.ent2id_enc_all[0]
-        rel2id_enc_lst=self.rel2id_enc_all[0]
+        ent2id_enc_lst = self.ent2id_enc_all[0]
+        rel2id_enc_lst = self.rel2id_enc_all[0]
 
         # process entity and relation data
-        for i in range(1,len(self.ent2id_enc_all)):
+        for i in range(1, len(self.ent2id_enc_all)):
             for j in range(len(ent2id_enc_lst)):
                 ent2id_enc_lst[j].append(self.ent2id_enc_all[i][j])
 
-        for i in range(1,len(self.rel2id_enc_all)):
+        for i in range(1, len(self.rel2id_enc_all)):
             for j in range(len(rel2id_enc_lst)):
                 rel2id_enc_lst[j].append(self.rel2id_enc_all[i][j])
 
         for i in range(len(ent2id_enc_lst)):
-            for j,ele in enumerate(ent2id_enc_lst[i]):
-                if ele==-1:
+            for j, ele in enumerate(ent2id_enc_lst[i]):
+                if ele == -1:
                     ent2id_enc_lst[i].remove(-1)
 
             ent2id_enc_lst[i] = list(np.unique(ent2id_enc_lst[i]))
             ent2id_enc_str = ''
 
             for j in range(len(ent2id_enc_lst[i])):
-                ent2id_enc_str = ent2id_enc_str+str(ent2id_enc_lst[i][j])+'\t'
-            ent2id_enc_str = ent2id_enc_str+str(i)+'\n'
+                ent2id_enc_str = ent2id_enc_str+str(ent2id_enc_lst[i][j]) + '\t'
+            ent2id_enc_str = ent2id_enc_str+str(i) + '\n'
             ent2id_enc_lst[i] = ent2id_enc_str
 
         for i in range(len(rel2id_enc_lst)):
             for j,ele in enumerate(rel2id_enc_lst[i]):
-                if ele==-1:
+                if ele == -1:
                     rel2id_enc_lst[i].remove(-1)
 
             rel2id_enc_lst[i] = list(np.unique(rel2id_enc_lst[i]))
             rel2id_enc_str = ''
 
             for j in range(len(rel2id_enc_lst[i])):
-                rel2id_enc_str = rel2id_enc_str+str(rel2id_enc_lst[i][j])+'\t'
-            rel2id_enc_str = rel2id_enc_str+str(i)+'\n'
+                rel2id_enc_str = rel2id_enc_str+str(rel2id_enc_lst[i][j]) + '\t'
+            rel2id_enc_str = rel2id_enc_str+str(i) + '\n'
             rel2id_enc_lst[i] = rel2id_enc_str
 
         # write files
@@ -221,30 +220,30 @@ class Client(object):
         rel_enc_file_path = 'fed_data/FB15K237/relation2idEnc.txt'
 
         with open(ent_enc_file_path, 'w') as f:
-            for i in range(len(ent2id_enc_lst)):
-                f.write(ent2id_enc_lst[i])
+            for item in range(len(ent2id_enc_lst)):
+                f.write(ent2id_enc_lst[item])
 
         with open(rel_enc_file_path, 'w') as f:
-            for i in range(len(rel2id_enc_lst)):
-                f.write(rel2id_enc_lst[i])
+            for item in range(len(rel2id_enc_lst)):
+                f.write(rel2id_enc_lst[item])
 
 
 '''Note:
     different keys and generator g lead to different encrypted results, 
-    but this factor will not affect the method, details and analysis can be found in FedPC.
+    but this factor will not affect the method, details and analysis can be found in FedPE.
     pypbc library: https://github.com/debatem1/pypbc
 '''
 if __name__ == '__main__':
 
     pkg = PKG()
-    pk_lst, aggPK_lst = pkg.static(5) # default there are 5 clients, generate initial keys information
+    pk_lst, aggPK_lst = pkg.static(5)  # default there are 5 clients, generate initial keys information
 
     server = Server()
 
     client = Client()
     # encrypt data for 5 clients, you can execute this process step-by-step
     for i in range(5):
-        client.process_data(i,pk_lst[i],aggPK_lst[i])
+        client.process_data(i, pk_lst[i], aggPK_lst[i])
 
     # client.merge_data() # if there is no more client joining
 
@@ -255,7 +254,7 @@ if __name__ == '__main__':
 
         pki, aggPKi, gammai = pkg.dynamic()
 
-        client.process_data(client_id,pki,aggPKi)
-        server.process_data(client,gammai)
+        client.process_data(client_id, pki, aggPKi)
+        server.process_data(client, gammai)
 
     client.merge_data()

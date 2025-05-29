@@ -14,7 +14,7 @@ do
 			file="main.py"
 			data="fed_data/${dataset}/${dataset}-Fed${n}.pkl"
 			name="${dataset}_fed${n}_fed_${model}"
-			cmd="python $file --data_path $data --name $name --run_mode FedPC --model ${model} --num_client $n --early_stop_patience 5 --gpu 0"
+			cmd="python $file --data_path $data --name $name --run_mode FedPE --model ${model} --early_stop_patience 5 --gpu 0"
 			echo $cmd
 			eval $cmd
 		done
