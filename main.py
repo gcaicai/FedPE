@@ -36,10 +36,10 @@ def init_logger(args):
     file_handler.setFormatter(logging.Formatter('%(asctime)s | %(message)s', datefmt="%Y-%m-%d %H:%M:%S"))
 
     logging.basicConfig(
-        level=logging.INFO,  # 设置日志的最低级别为 INFO
+        level=logging.INFO,
         format='%(asctime)s | %(message)s',
         datefmt="%Y-%m-%d %H:%M:%S",
-        handlers=[file_handler]  # 使用自定义的文件日志 handler
+        handlers=[file_handler]
     )
 
     console_handler = logging.StreamHandler()
@@ -57,7 +57,6 @@ if __name__ == '__main__':
     parser.add_argument('--run_mode', default='FedPE', choices=['FedPE'])
     parser.add_argument('--model', default='TransE', choices=['TransE', 'RotatE', 'DistMult', 'ComplEx'])
 
-    # one task hyperparam
     parser.add_argument('--one_client_idx', default=0, type=int)
     parser.add_argument('--max_epoch', default=10000, type=int)
     parser.add_argument('--log_per_epoch', default=1, type=int)
